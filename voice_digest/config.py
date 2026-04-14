@@ -4,7 +4,7 @@ BASE_DIR        = Path(__file__).parent.parent
 TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 INDEX_STORE_DIR = BASE_DIR / "index_store"
 
-WHISPER_MODEL      = "medium"  # options: tiny, base, small, medium, large (medium+ is best for non-English)
+WHISPER_MODEL      = "large-v3"  # options: tiny, base, small, medium, large-v2, large-v3
 WHISPER_LANGUAGE   = "bg"      # Bulgarian — set to None to auto-detect
 
 import torch
