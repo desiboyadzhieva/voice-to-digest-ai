@@ -1,0 +1,13 @@
+# Speech-to-text
+faster-whisper>=1.0.3
+
+# LlamaIndex (v0.10+ split-package architecture)
+llama-index-core>=0.10.0
+llama-index-llms-ollama>=0.3.0
+llama-index-embeddings-ollama>=0.3.0
+
+# CLI framework (includes rich for coloured output)
+typer[all]>=0.12.0
+
+# Optional: web UI
+gradio>=4.0.0
