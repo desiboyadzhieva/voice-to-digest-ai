@@ -1,14 +1,9 @@
-from faster_whisper import WhisperModel
+import whisper
 from datetime import date
 from pathlib import Path
 import re
 
-from voice_digest.config import (
-    TRANSCRIPTS_DIR,
-    WHISPER_MODEL,
-    WHISPER_DEVICE,
-    WHISPER_COMPUTE,
-)
+from voice_digest.config import TRANSCRIPTS_DIR, WHISPER_MODEL
 
 
 def _slugify(text: str, max_words: int = 5) -> str:
@@ -19,7 +14,7 @@ def _slugify(text: str, max_words: int = 5) -> str:
 
 def transcribe(audio_path: str, topic: str | None = None) -> Path:
     """
-    Transcribe an audio file with faster-whisper and save the result to
+    Transcribe an audio file with openai-whisper and save the result to
     transcripts/<date>_<topic>.txt.
 
     Parameters
@@ -35,11 +30,9 @@ def transcribe(audio_path: str, topic: str | None = None) -> Path:
     Path
         Full path to the saved transcript file.
     """
-    model = WhisperModel(WHISPER_MODEL, device=WHISPER_DEVICE, compute_type=WHISPER_COMPUTE)
-    segments, _ = model.transcribe(audio_path, beam_size=5)
-
-    text_chunks = [seg.text.strip() for seg in segments]
-    full_text = " ".join(text_chunks)
+    model = whisper.load_model(WHISPER_MODEL)
+    result = model.transcribe(audio_path)
+    full_text = result["text"].strip()
 
     if not topic:
         topic = _slugify(full_text, max_words=5)
