@@ -3,7 +3,7 @@ from datetime import date
 from pathlib import Path
 import re
 
-from voice_digest.config import TRANSCRIPTS_DIR, WHISPER_MODEL
+from voice_digest.config import TRANSCRIPTS_DIR, WHISPER_MODEL, WHISPER_DEVICE
 
 
 def _slugify(text: str, max_words: int = 5) -> str:
@@ -30,7 +30,7 @@ def transcribe(audio_path: str, topic: str | None = None) -> Path:
     Path
         Full path to the saved transcript file.
     """
-    model = whisper.load_model(WHISPER_MODEL)
+    model = whisper.load_model(WHISPER_MODEL, device=WHISPER_DEVICE)
     result = model.transcribe(audio_path)
     full_text = result["text"].strip()
 
