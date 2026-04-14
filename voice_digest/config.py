@@ -4,8 +4,11 @@ BASE_DIR        = Path(__file__).parent.parent
 TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 INDEX_STORE_DIR = BASE_DIR / "index_store"
 
-WHISPER_MODEL      = "small"   # options: tiny, base, small, medium, large
-WHISPER_DEVICE     = "cuda"    # GPU — set to "cpu" if you want to use CPU instead
+WHISPER_MODEL      = "medium"  # options: tiny, base, small, medium, large (medium+ is best for non-English)
+WHISPER_LANGUAGE   = "bg"      # Bulgarian — set to None to auto-detect
+
+import torch
+WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 OLLAMA_BASE_URL    = "http://localhost:11434"
 OLLAMA_LLM_MODEL   = "llama3"
